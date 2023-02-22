@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using InsuranceApi.Domain.PremiumCalculation.Models;
+using InsuranceApi.Domain.PremiumCalculation.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace InsuranceApi.Controllers;
 
@@ -6,6 +9,13 @@ namespace InsuranceApi.Controllers;
 [Route("[controller]")]
 public class PremiumController : ControllerBase
 {
+    private readonly IMediator _mediator;
+
+    public PremiumController(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
     [HttpGet]
     public async Task<IActionResult> CalculatePremium(
         [FromQuery] string name,
@@ -13,7 +23,10 @@ public class PremiumController : ControllerBase
         [FromQuery] string occupation,
         [FromQuery] decimal sumInsured)
     {
-        return Ok();
-    }
+        CalculatePremiumQuery query = new(name, dateOfBirth, occupation, sumInsured);
 
+        CalculatedPremium? calculatedPremium = (CalculatedPremium?)await _mediator.Send(query);
+
+        return Ok(calculatedPremium);
+    }
 }

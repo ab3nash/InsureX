@@ -12,11 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\PremiumCalculation\Handlers\" />
-    <Folder Include="Domain\PremiumCalculation\Models\" />
     <Folder Include="Domain\PremiumCalculation\Commands\" />
-    <Folder Include="Domain\PremiumCalculation\Validators\" />
-    <Folder Include="Domain\PremiumCalculation\Queries\" />
   </ItemGroup>
 
 </Project>

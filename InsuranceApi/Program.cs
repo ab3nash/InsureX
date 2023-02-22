@@ -1,6 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+RegisterServices(builder.Services);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -21,3 +22,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+void RegisterServices(IServiceCollection services)
+{
+    services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
+}
