@@ -4,7 +4,7 @@ public class InvalidConfigException : Exception
 {
     public string ConfigName { get; }
 
-    public InvalidConfigException(string configName): base($"Config {configName} is missing or misconfigured")
+    public InvalidConfigException(string configName): base($"Config '{configName}' is missing or misconfigured")
     {
         ConfigName = configName;
     }
