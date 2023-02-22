@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using InsuranceApi.Domain.PremiumCalculation.Models;
+using InsuranceApi.Domain.Common.Models;
 using InsuranceApi.Domain.PremiumCalculation.Queries;
 using Microsoft.Extensions.Options;
 
@@ -22,6 +22,6 @@ public class CalculatePremiumQueryValidator : AbstractValidator<CalculatePremium
 
     private bool BeAValidOccupation(string occupation)
     {
-        return _applicantConfig.Occupations?.Select(o => o.Name).Contains(occupation) ?? false;
+        return _applicantConfig.Occupations?.Contains(occupation) ?? false;
     }
 }

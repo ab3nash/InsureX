@@ -1,7 +1,9 @@
 using FluentValidation;
+using InsuranceApi.Domain.Common.Models;
 using InsuranceApi.Domain.PremiumCalculation.Queries;
 using InsuranceApi.Domain.PremiumCalculation.Validators;
 using InsuranceApi.Helpers;
+using InsuranceApi.Services;
 using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,9 +32,14 @@ app.MapControllers();
 app.Run();
 
 
-void RegisterServices(IServiceCollection services)
+void RegisterServices(IServiceCollection services, IConfiguration configuration)
 {
+    services.AddOptions<ApplicantConfig>().Bind(configuration.GetSection("ApplicantConfig"));
+    services.AddOptions<List<OccupationRating>>().Bind(configuration.GetSection("OccupationRatingConfig"));
+    services.AddOptions<List<RatingFactor>>().Bind(configuration.GetSection("RatingFactorConfig"));
+
     services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
-    services.AddTransient<IValidator<CalculatePremiumQuery>, CalculatePremiumQueryValidator>();
     services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+    services.AddTransient<IValidator<CalculatePremiumQuery>, CalculatePremiumQueryValidator>();
+    services.AddScoped<IOccupationRatingService, OccupationRatingService>();
 }

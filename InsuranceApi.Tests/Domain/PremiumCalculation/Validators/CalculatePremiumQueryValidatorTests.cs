@@ -1,5 +1,5 @@
 ﻿using FluentValidation.TestHelper;
-using InsuranceApi.Domain.PremiumCalculation.Models;
+using InsuranceApi.Domain.Common.Models;
 using InsuranceApi.Domain.PremiumCalculation.Queries;
 using InsuranceApi.Domain.PremiumCalculation.Validators;
 using Microsoft.Extensions.Options;
@@ -13,10 +13,7 @@ public class CalculatePremiumQueryValidatorTests
     {
         IOptions<ApplicantConfig> applicantConfigOptions = Options.Create(new ApplicantConfig {
             MaxAge = 21,
-            Occupations = new List<Occupation>
-            {
-                new() {Name = "Clerk", Rating = "White Collar"}
-            }
+            Occupations = new List<string> { "Clerk", "Doctor" }
         });
         _validator = new CalculatePremiumQueryValidator(applicantConfigOptions);
     }
