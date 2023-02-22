@@ -6,4 +6,10 @@ namespace InsuranceApi.Controllers;
 [Route("[controller]")]
 public class PremiumController : ControllerBase
 {
+    [HttpGet]
+    public async Task<IActionResult> CalculatePremium()
+    {
+        return Ok();
+    }
+
 }

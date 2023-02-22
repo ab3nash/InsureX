@@ -10,7 +10,7 @@ public class PremiumControllerTests
     {
         PremiumController controller = new();
 
-        var result = (ObjectResult) await controller.CalculatePremium();
+        var result = (StatusCodeResult) await controller.CalculatePremium();
 
         result.StatusCode.Should().Be(200);
     }
