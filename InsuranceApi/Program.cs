@@ -3,16 +3,16 @@ using InsuranceApi.Domain.Common.Models;
 using InsuranceApi.Domain.PremiumCalculation.Queries;
 using InsuranceApi.Domain.PremiumCalculation.Validators;
 using InsuranceApi.Helpers;
+using InsuranceApi.Middlewares;
 using InsuranceApi.Services;
 using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-RegisterServices(builder.Services);
+RegisterServices(builder.Services, builder.Configuration);
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -24,6 +24,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthorization();
 
@@ -42,4 +44,5 @@ void RegisterServices(IServiceCollection services, IConfiguration configuration)
     services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
     services.AddTransient<IValidator<CalculatePremiumQuery>, CalculatePremiumQueryValidator>();
     services.AddScoped<IOccupationRatingService, OccupationRatingService>();
+    builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 }
