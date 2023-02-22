@@ -7,7 +7,11 @@ namespace InsuranceApi.Controllers;
 public class PremiumController : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> CalculatePremium()
+    public async Task<IActionResult> CalculatePremium(
+        [FromQuery] string name,
+        [FromQuery] DateTime dateOfBirth,
+        [FromQuery] string occupation,
+        [FromQuery] decimal sumInsured)
     {
         return Ok();
     }
