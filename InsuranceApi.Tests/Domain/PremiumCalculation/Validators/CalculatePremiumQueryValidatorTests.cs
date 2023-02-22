@@ -44,6 +44,18 @@ public class CalculatePremiumQueryValidatorTests
     }
 
     [Theory]
+    [InlineData(-2)]
+    [InlineData(0)]
+    public void Age_ShouldNotBeLessThan_1Year(int age)
+    {
+        CalculatePremiumQuery query = new("Jon Doe", DateTime.UtcNow.AddYears(-age), "Clerk", 2010);
+
+        var result = _validator.TestValidate(query);
+
+        result.ShouldHaveValidationErrorFor(q => q.DateOfBirth);
+    }
+
+    [Theory]
     [InlineData("PM")]
     [InlineData("President")]
     public void Occupation_ShouldBeIn_OccupationsList(string occupation)
