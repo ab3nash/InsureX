@@ -1,3 +1,9 @@
+using FluentValidation;
+using InsuranceApi.Domain.PremiumCalculation.Queries;
+using InsuranceApi.Domain.PremiumCalculation.Validators;
+using InsuranceApi.Helpers;
+using MediatR;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -27,4 +33,6 @@ app.Run();
 void RegisterServices(IServiceCollection services)
 {
     services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
+    services.AddTransient<IValidator<CalculatePremiumQuery>, CalculatePremiumQueryValidator>();
+    services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 }

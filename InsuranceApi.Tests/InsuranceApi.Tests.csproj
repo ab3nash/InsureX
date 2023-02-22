@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -25,11 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\PremiumCalculation\Commands\" />
     <Folder Include="Domain\PremiumCalculation\Handlers\" />
-    <Folder Include="Domain\PremiumCalculation\Models\" />
-    <Folder Include="Domain\PremiumCalculation\Validators\" />
-    <Folder Include="Domain\PremiumCalculation\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
