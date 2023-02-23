@@ -10,13 +10,18 @@ using MediatR;
 var builder = WebApplication.CreateBuilder(args);
 
 var allowSpecificOrigins = "_allowSpecificOrigins";
-builder.Services.AddCors(options => {
-    options.AddPolicy(
-        name: allowSpecificOrigins,
-        policy => {
-            policy.WithOrigins("http://localhost:4200");
-        });
-});
+string allowedOrigins = builder.Configuration.GetValue<string>("AllowedOrigins");
+if (!string.IsNullOrEmpty(allowedOrigins))
+{
+    var origins = allowedOrigins.Split(";");
+    builder.Services.AddCors(options => {
+        options.AddPolicy(
+            name: allowSpecificOrigins,
+            policy => {
+                policy.WithOrigins(origins);
+            });
+    });
+}
 
 builder.Services.AddApplicationInsightsTelemetry();
 
