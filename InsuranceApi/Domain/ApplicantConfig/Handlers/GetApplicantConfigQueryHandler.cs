@@ -14,13 +14,13 @@ public class GetApplicantConfigQueryHandler : IRequestHandler<GetApplicantConfig
         _applicantConfig = applicantConfigOptions.Value;
     }
 
-    public async Task<Models.ApplicantConfiguration> Handle(GetApplicantConfigurationQuery request, CancellationToken cancellationToken)
+    public Task<Models.ApplicantConfiguration> Handle(GetApplicantConfigurationQuery request, CancellationToken cancellationToken)
     {
         if (_applicantConfig.Occupations?.Any() != true)
         {
             throw new InvalidConfigException("ApplicantConfig");
         }
 
-        return new Models.ApplicantConfiguration(_applicantConfig.MaxAge, _applicantConfig.Occupations);
+        return Task.FromResult(new Models.ApplicantConfiguration(_applicantConfig.MaxAge, _applicantConfig.Occupations));
     }
 }
