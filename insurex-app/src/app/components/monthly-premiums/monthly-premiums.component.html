@@ -2,10 +2,10 @@
     <h3>Monthly Premiums</h3>
     <div class="monthly-premiums">
         <h4>Death Premium</h4>
-        <p> {{calculatedPremium.MonthlyDeathPremium}}</p>
+        <p> {{calculatedPremium.MonthlyDeathPremium | currency:'USD':'symbol':'2.2'}}</p>
     </div>
     <div class="monthly-premiums">
         <h4>TPD Premium</h4>
-        <p> {{calculatedPremium.MonthlyTpdPremium}}</p>
+        <p> {{calculatedPremium.MonthlyTpdPremium | currency:'USD':'symbol':'2.2'}}</p>
     </div>
 </div>

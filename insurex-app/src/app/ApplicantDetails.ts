@@ -1,7 +1,9 @@
+import { Dayjs } from "dayjs";
+
 export interface ApplicantDetails {
     name: string;
     occupation: string;
-    dateOfBirth: Date;
+    dateOfBirth: Dayjs;
     age: number;
     sumInsured: number;
 }

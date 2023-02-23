@@ -9,6 +9,15 @@ using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var allowSpecificOrigins = "_allowSpecificOrigins";
+builder.Services.AddCors(options => {
+    options.AddPolicy(
+        name: allowSpecificOrigins,
+        policy => {
+            policy.WithOrigins("http://localhost:4200");
+        });
+});
+
 // Add services to the container.
 RegisterServices(builder.Services, builder.Configuration);
 
@@ -24,6 +33,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(allowSpecificOrigins);
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 

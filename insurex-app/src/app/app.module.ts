@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import {DpDatePickerModule} from 'ng2-date-picker';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -11,10 +14,13 @@ import { ApplicantDetailsComponent } from './components/applicant-details/applic
     AppComponent,
     HeaderComponent,
     MonthlyPremiumsComponent,
-    ApplicantDetailsComponent
+    ApplicantDetailsComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    DpDatePickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

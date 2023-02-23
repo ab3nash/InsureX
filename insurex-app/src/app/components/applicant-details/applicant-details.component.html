@@ -4,48 +4,62 @@
         <div class="form-control">
             <label for="name">Name</label>
             <input
+                [(ngModel)]="applicantDetails.name"
                 type="text"
                 name="name"
                 id="name"
                 placeholder="Full Name"
+                required
             />
         </div>
         <div class="form-control">
             <label for="dateOfBirth">Date of Birth</label>
-            <input
-                type="text"
+            <dp-date-picker
+                [(ngModel)]="applicantDetails.dateOfBirth"
                 name="dateOfBirth"
-                id="dateOfBirth"
-                placeholder="DD/MM/YYYY"
-            />
+                placeholder="DD-MM-YYYY"
+                (onChange)="onDateOfBirthChange()"
+                >
+            </dp-date-picker>  
         </div>
         <div class="form-control">
-            <label for="age">Age</label>
+            <label for="age">Age (years)</label>
             <input
+                [(ngModel)]="applicantDetails.age"
                 type="number"
                 disabled
                 name="age"
                 id="age"
                 placeholder="0"
+                required
             />
         </div>
         <div class="form-control">
             <label for="sumInsured">Sum Insured</label>
             <input
-                type="number"
+                [ngModel]="applicantDetails.sumInsured | currency:'AUD':'symbol':'2.2'"
+                [ngModelOptions]="{updateOn:'blur'}"
+                type="text"
                 name="sumInsured"
                 id="sumInsured"
                 placeholder="0"
+                required
             />
         </div>
         <div class="form-control">
             <label for="occupation">Occupation</label>
-            <input
-                type="text"
+            <select
+                [(ngModel)]="applicantDetails.occupation"
+                (change) = "onOccupationChange()"
                 name="occupation"
                 id="occupation"
-                placeholder="0"
-            />
+                placeholder="occupation"
+                required
+            >
+                <option *ngFor="let option of applicantConfig.occupations" [value]="option">
+                    {{ option }}
+                </option>
+            </select>
         </div>
     </form>
 
