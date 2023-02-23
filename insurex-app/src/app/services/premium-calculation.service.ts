@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CalculatedPremium } from '../CalculatedPremium';
 import { ApplicantDetails } from '../ApplicantDetails';
+import {Environment, ApiPaths} from '../Environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PremiumCalculationService {
-  private apiUrl: string = 'http://localhost:5273/premium';
+  private apiUrl: string = Environment.baseUrl + ApiPaths.CalculatePremium;
 
   constructor(private http: HttpClient) { }
 
