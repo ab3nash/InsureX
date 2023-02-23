@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CalculatedPremium } from '../../CalculatedPremium';
 
 @Component({
@@ -7,8 +7,5 @@ import { CalculatedPremium } from '../../CalculatedPremium';
   styleUrls: ['./monthly-premiums.component.css']
 })
 export class MonthlyPremiumsComponent {
-  calculatedPremium: CalculatedPremium = {
-    MonthlyDeathPremium : 2000,
-    MonthlyTpdPremium : 1900
-  };
+  @Input() calculatedPremium!: CalculatedPremium;
 }

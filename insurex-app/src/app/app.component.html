@@ -1,7 +1,7 @@
 <div class="container">
   <app-header></app-header>
-  <hr/>
-  <app-applicant-details></app-applicant-details>
-  <hr/>
-  <app-monthly-premiums></app-monthly-premiums>
+  <hr />
+  <app-applicant-details (onCalculatePremium)='calculatePremium($event)'></app-applicant-details>
+  <hr />
+  <app-monthly-premiums [calculatedPremium]="calculatedPremium"></app-monthly-premiums>
 </div>

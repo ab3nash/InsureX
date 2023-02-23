@@ -3,63 +3,64 @@
     <form>
         <div class="form-control">
             <label for="name">Name</label>
-            <input
-                [(ngModel)]="applicantDetails.name"
-                type="text"
-                name="name"
-                id="name"
-                placeholder="Full Name"
-                required
-            />
+            <input [(ngModel)]="applicantDetails.name" type="text" name="name" id="name" placeholder="Full Name"
+                required #name="ngModel" (change)="onFormChange()">
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
+                <div *ngIf="name.errors?.['required']">
+                    Name is required.
+                </div>
+            </div>
         </div>
         <div class="form-control">
             <label for="dateOfBirth">Date of Birth</label>
-            <dp-date-picker
-                [(ngModel)]="applicantDetails.dateOfBirth"
-                name="dateOfBirth"
-                placeholder="DD-MM-YYYY"
-                (onChange)="onDateOfBirthChange()"
-                >
-            </dp-date-picker>  
+            <dp-date-picker [(ngModel)]="applicantDetails.dateOfBirth" name="dateOfBirth" placeholder="DD-MM-YYYY"
+                [minDate]="minDate" [maxDate]="maxDate" required="required" (onChange)="onDateOfBirthChange()"
+                #dateOfBirth="ngModel">
+            </dp-date-picker>
+            <div *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)" class="alert">
+                <div *ngIf="dateOfBirth.errors?.['required']">
+                    Date of birth is required.
+                </div>
+                <div *ngIf="dateOfBirth.errors?.['minDate']">
+                    Maximum age is {{applicantConfig.maxAge}} years.
+                </div>
+                <div *ngIf="dateOfBirth.errors?.['maxDate']">
+                    Minimum age is 1 year.
+                </div>
+            </div>
         </div>
         <div class="form-control">
             <label for="age">Age (years)</label>
-            <input
-                [(ngModel)]="applicantDetails.age"
-                type="number"
-                disabled
-                name="age"
-                id="age"
-                placeholder="0"
-                required
-            />
+            <input [(ngModel)]="applicantDetails.age" type="number" disabled name="age" id="age" placeholder="0"
+                required>
         </div>
         <div class="form-control">
             <label for="sumInsured">Sum Insured</label>
-            <input
-                [ngModel]="applicantDetails.sumInsured | currency:'AUD':'symbol':'2.2'"
-                [ngModelOptions]="{updateOn:'blur'}"
-                type="text"
-                name="sumInsured"
-                id="sumInsured"
-                placeholder="0"
-                required
-            />
+            <input type="text" name="sumInsured" placeholder="Sum Insured" [(ngModel)]="applicantDetails.sumInsured"
+                (blur)="transformAmount($event)" (focus)="removeCurrencyPipeFormat($event)" required pattern="[0-9]+"
+                #sumInsured="ngModel">
+            <div *ngIf="sumInsured.invalid && (sumInsured.dirty || sumInsured.touched)" class="alert">
+                <div *ngIf="sumInsured.errors?.['required']">
+                    Sum Insured is required.
+                </div>
+                <div *ngIf="sumInsured.errors?.['min']">
+                    Sum Insured is required.
+                </div>
+            </div>
         </div>
         <div class="form-control">
             <label for="occupation">Occupation</label>
-            <select
-                [(ngModel)]="applicantDetails.occupation"
-                (change) = "onOccupationChange()"
-                name="occupation"
-                id="occupation"
-                placeholder="occupation"
-                required
-            >
+            <select [(ngModel)]="applicantDetails.occupation" (change)="onFormChange()" name="occupation"
+                id="occupation" placeholder="occupation" required #occupation="ngModel">
                 <option *ngFor="let option of applicantConfig.occupations" [value]="option">
                     {{ option }}
                 </option>
             </select>
+            <div *ngIf="occupation.invalid && (occupation.dirty || occupation.touched)" class="alert">
+                <div *ngIf="occupation.errors?.['required']">
+                    Occupation is required.
+                </div>
+            </div>
         </div>
     </form>
 

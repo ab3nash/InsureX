@@ -1,4 +1,4 @@
 export interface CalculatedPremium {
-    MonthlyDeathPremium: number;
-    MonthlyTpdPremium: number;
+    monthlyDeathPremium: number;
+    monthlyTpdPremium: number;
 }
