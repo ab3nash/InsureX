@@ -23,7 +23,7 @@ public class CalculatePremiumQueryHandler : IRequestHandler<CalculatePremiumQuer
         // Monthly Death Premium = (Sum Insured * Occupation Rating Factor * Age) / 1000 * 12
         // Monthly TPD Premium = (Sum Insured * Occupation Rating Factor * Age) / 1234
         await Task.Run(() => {
-            int age = DateTime.UtcNow.Year - query.DateOfBirth.Year;
+            int age = DateTime.Now.Year - query.DateOfBirth.Year;
             decimal occupationRatingFactor = _occupationRatingService.GetRatingFactor(query.Occupation);
             decimal premiumDeterminant = query.SumInsured * occupationRatingFactor * age;
             monthlyDeathPremium = premiumDeterminant * 0.012m;

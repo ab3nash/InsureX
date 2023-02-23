@@ -1,5 +1,6 @@
 <div>
     <h3>Details of Insured</h3>
+    <label *ngIf="showServerError" class="alert">We are unable to reach our servers. Please try again later.</label>
     <form>
         <div class="form-control">
             <label for="name">Name</label>
@@ -17,7 +18,7 @@
                 [minDate]="minDate" [maxDate]="maxDate" required="required" (onChange)="onDateOfBirthChange()"
                 #dateOfBirth="ngModel">
             </dp-date-picker>
-            <div *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)" class="alert">
+            <div *ngIf="dateOfBirth.invalid && !showServerError && (dateOfBirth.dirty || dateOfBirth.touched)" class="alert">
                 <div *ngIf="dateOfBirth.errors?.['required']">
                     Date of birth is required.
                 </div>

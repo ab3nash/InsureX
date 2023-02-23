@@ -18,6 +18,7 @@ export class ApplicantDetailsComponent implements OnInit {
   minDate: Dayjs = dayjs();
   maxDate: Dayjs = dayjs().subtract(1, 'year');
   formattedAmount: string = '';
+  showServerError: boolean = false;
   applicantDetails: ApplicantDetails = {
     name: '',
     age: 0,
@@ -29,10 +30,14 @@ export class ApplicantDetailsComponent implements OnInit {
   constructor(private applicantConfigService: ApplicantConfigService, private currencyPipe: CurrencyPipe) { }
 
   ngOnInit(): void {
-    this.applicantConfigService.getApplicantConfig().subscribe(
+      this.showServerError = false;
+      this.applicantConfigService.getApplicantConfig().subscribe(
       (applicantConfig) => {
         this.applicantConfig = applicantConfig;
         this.minDate = dayjs().subtract(this.applicantConfig.maxAge, 'year');
+      },
+      (error) => {
+        this.showServerError = true;
       });
   }
 

@@ -42,7 +42,7 @@ public class CalculatePremiunQueryHandlerTests
     {
         CalculatePremiumQuery query = new(
             Name: "Test",
-            DateOfBirth: DateTime.UtcNow.AddYears(-age),
+            DateOfBirth: DateTime.Now.AddYears(-age),
             occcupation,
             sumInsured);
 

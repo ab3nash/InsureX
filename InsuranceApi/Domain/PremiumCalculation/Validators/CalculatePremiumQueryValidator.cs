@@ -15,9 +15,9 @@ public class CalculatePremiumQueryValidator : AbstractValidator<CalculatePremium
 
         RuleFor(x => x.Name).NotEmpty();
         RuleFor(x => x.DateOfBirth)
-            .LessThan(DateTime.UtcNow.Date.AddYears(-1).Date)
+            .LessThan(DateTime.Now.Date.AddYears(-1).Date)
             .WithMessage($"Minimum age allowed is 1 year")
-            .GreaterThan(DateTime.UtcNow.AddYears(-_applicantConfig.MaxAge).Date)
+            .GreaterThan(DateTime.Now.AddYears(-_applicantConfig.MaxAge).Date)
             .WithMessage($"Maximum age allowed is {_applicantConfig.MaxAge} years");
         RuleFor(x => x.Occupation).NotEmpty().Must(BeAValidOccupation).WithMessage("Invalid occupation");
         RuleFor(x => x.SumInsured).GreaterThan(0);
