@@ -18,6 +18,8 @@ builder.Services.AddCors(options => {
         });
 });
 
+builder.Services.AddApplicationInsightsTelemetry();
+
 // Add services to the container.
 RegisterServices(builder.Services, builder.Configuration);
 
